@@ -1,0 +1,26 @@
+{
+  "name": "waiting-room",
+  "version": "1.0.0",
+  "description": "[NodeJS] Display customers appointments in a waiting room.",
+  "main": "app.js",
+  "dependencies": {
+    "ejs": "^2.1.4",
+    "express": "^4.11.0",
+    "mongoose": "^3.8.21",
+    "socket.io": "^1.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexzhxin/waiting-room.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexzhxin/waiting-room/issues"
+  },
+  "homepage": "https://github.com/alexzhxin/waiting-room"
+}
