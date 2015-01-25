@@ -1,6 +1,17 @@
-var socket = io.connect('ws://localhost:3001', {transports: ['websocket', 'polling', 'flashsocket']});
+var socket = io.connect($("#ws_addr").val(), {transports: ['websocket', 'polling', 'flashsocket']});
 
 $(document).ready(function() {
+
+    socket.on("meeting-list", function(meetings) {
+        console.log(meetings);
+        $('#meetingList').dynatable({
+            dataset: {
+                records: meetings
+            }
+        });
+    });
+
+    socket.emit('meeting-list');
 
     $("#meetingDatetime").datetimepicker();
 
@@ -12,8 +23,6 @@ $(document).ready(function() {
             meetingReason : $("#meetingReason").val(),
             meetingDatetime : moment($("#meetingDatetime").val(), "YYYY/MM/DD h:mm").toDate()
         };
-
-        console.log(formValues);
 
         var isFormValid = true;
 

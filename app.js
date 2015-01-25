@@ -69,5 +69,8 @@ app.listen(config.values.server_port, function() {
 io.sockets.on('connection', function(socket){
 
     socket.on('newMeeting', realtime.newMeeting);
+    socket.on('meeting-list', function() {
+        realtime.meetingList(socket);
+    });
 
 });

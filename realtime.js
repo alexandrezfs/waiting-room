@@ -8,3 +8,13 @@ exports.newMeeting = function(meeting) {
         console.log(meeting);
     });
 };
+
+exports.meetingList = function(socket) {
+
+    model.Meeting.find({}).sort({created_at: -1}).exec(function(err, meetings) {
+        console.log(meetings);
+        socket.emit('meeting-list', meetings);
+        socket.broadcast.emit('meeting-list', meetings);
+    });
+
+};

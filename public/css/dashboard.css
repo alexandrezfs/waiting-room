@@ -1,3 +1,11 @@
+.meetingList {
+    margin-top: 50px;
+}
+
+.meetingList th a {
+    color: black;
+}
+
 /* make sidebar nav vertical */
 @media (min-width: 768px){
     .affix-content .container {
