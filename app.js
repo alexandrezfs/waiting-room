@@ -1,59 +1,45 @@
 var express = require('express');
 var routing = require('./routing');
-var model = require('./model');
 var app = express();
-var expressSession = require('express-session');
 var passport = require('passport');
-var LocalStrategy = passport.Strategy;
+var passportUtil = require('./passport-util');
+var LocalStrategy = require('passport-local').Strategy;
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var session = require('express-session');
+var flash = require('connect-flash');
+var config = require('./config');
+var fixture = require('./fixture');
 
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
-app.use(expressSession({secret: 'mySecretKey'}));
+// required for passport
+app.use(session({secret: 'secret'}));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(express.static(__dirname + '/public'));
+app.use(flash());
 
 app.set('view engine', 'ejs');
-app.use(express.static(__dirname + '/public'));
 
-passport.serializeUser(function(user, done) {
-    done(null, user._id);
-});
-
-passport.deserializeUser(function(id, done) {
-    User.findById(id, function(err, user) {
-        done(err, user);
-    });
-});
-
-passport.use('login', new LocalStrategy({
-        passReqToCallback : true
-    },
-    function(req, username, password, done) {
-        // check in mongo if a user with username exists or not
-        User.findOne({ 'username' :  username },
-            function(err, user) {
-                // In case of any error, return using the done method
-                if (err)
-                    return done(err);
-                // Username does not exist, log error & redirect back
-                if (!user){
-                    console.log('User Not Found with username '+username);
-                    return done(null, false,
-                        req.flash('message', 'User Not found.'));
-                }
-                // User exists but wrong password, log the error
-                if (!isValidPassword(user, password)){
-                    console.log('Invalid Password');
-                    return done(null, false,
-                        req.flash('message', 'Invalid Password'));
-                }
-                // User and password both match, return user from
-                // done method which will be treated like success
-                return done(null, user);
-            }
-        );
-    }));
+passport.serializeUser(passportUtil.serializeUser);
+passport.deserializeUser(passportUtil.deserializeUser);
+passport.use(new LocalStrategy(
+    passportUtil.strategy
+));
 
 app.get('/', routing.indexRoute);
-app.get('/loginProcess', routing.loginProcess);
+app.get('/dashboard', routing.dashboardRoute);
+app.get('/front', routing.frontRoute);
+app.post('/login',
+    passport.authenticate('local', {failureRedirect: '/', failureFlash: true}),
+    function (req, res) {
+        res.redirect('/dashboard');
+    });
 
-app.listen(3000);
+app.listen(config.values.server_port, function() {
+    console.log("server started on port " + config.values.server_port);
+    fixture.registerAdminUser();
+});

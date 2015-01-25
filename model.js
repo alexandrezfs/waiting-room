@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
+var config = require('./config');
 
-mongoose.connect('mongodb://localhost/waitingr');
+mongoose.connect('mongodb://localhost/' + config.values.mongo_db_name);
 
 var UserSchema = new mongoose.Schema({
     email: String,
