@@ -10,6 +10,27 @@ var session = require('express-session');
 var flash = require('connect-flash');
 var config = require('./config');
 var fixture = require('./fixture');
+var http = require('http').Server(app);
+var realtime = require('./realtime');
+var io = require('socket.io').listen(3001);
+
+io.set('transports', [
+    'websocket'
+    , 'flashsocket'
+    , 'htmlfile'
+    , 'xhr-polling'
+    , 'jsonp-polling'
+]);
+
+app.use(function (req, res, next) {
+
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-type, Content-Range, Content-Disposition, Content-Description');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+
+    next();
+});
 
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -30,6 +51,7 @@ passport.use(new LocalStrategy(
     passportUtil.strategy
 ));
 
+
 app.get('/', routing.indexRoute);
 app.get('/dashboard', routing.dashboardRoute);
 app.get('/front', routing.frontRoute);
@@ -42,4 +64,10 @@ app.post('/login',
 app.listen(config.values.server_port, function() {
     console.log("server started on port " + config.values.server_port);
     fixture.registerAdminUser();
+});
+
+io.sockets.on('connection', function(socket){
+
+    socket.on('newMeeting', realtime.newMeeting);
+
 });

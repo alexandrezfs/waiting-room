@@ -14,3 +14,16 @@ var UserSchema = new mongoose.Schema({
 });
 
 exports.User = mongoose.model('User', UserSchema);
+
+
+
+var MeetingSchema = new mongoose.Schema({
+    clientFirstname: String,
+    clientLastname: String,
+    meetingReason: String,
+    meetingDatetime: { type: Date, default: Date.now },
+    created_at: { type: Date, default: Date.now },
+    updated_at: { type: Date, default: Date.now }
+});
+
+exports.Meeting = mongoose.model('Meeting', MeetingSchema);
