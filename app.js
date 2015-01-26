@@ -75,5 +75,8 @@ io.sockets.on('connection', function(socket){
     socket.on('meeting-list', function() {
         realtime.meetingList(socket);
     });
+    socket.on('meeting-list-today', function() {
+        realtime.meetingListToday(socket);
+    });
 
 });

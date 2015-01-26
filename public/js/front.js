@@ -2,7 +2,7 @@ var socket = io.connect($("#ws_addr").val(), {transports: ['websocket', 'polling
 
 $(document).ready(function() {
 
-    socket.on("meeting-list", function(meetings) {
+    socket.on("meeting-list-today", function(meetings) {
 
         initMeetingList(meetings);
 
@@ -13,7 +13,7 @@ $(document).ready(function() {
         dynatable.process();
     });
 
-    socket.emit('meeting-list');
+    socket.emit('meeting-list-today');
 
 });
 
