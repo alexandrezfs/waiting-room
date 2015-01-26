@@ -7,6 +7,13 @@ $(document).ready(function() {
         $('#meetingList').dynatable({
             dataset: {
                 records: meetings
+            },
+            writers: {
+                'meetingDatetime': function (el, record) {
+                    var dateStr = el.innerHtml;
+                    var convertedDate = moment(dateStr).format("LLL");
+                    return convertedDate; // return original formatted date str for dateColumn
+                }
             }
         });
     });
@@ -38,7 +45,6 @@ $(document).ready(function() {
 
         if(isFormValid) {
             socket.emit('newMeeting', formValues);
-            sweetAlert("Saved", "You created a client meeting.", "success");
             $("#clientFirstname").val("");
             $("#clientLastname").val("");
             $("#meetingReason").val("");
