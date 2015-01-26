@@ -3,19 +3,13 @@ var socket = io.connect($("#ws_addr").val(), {transports: ['websocket', 'polling
 $(document).ready(function() {
 
     socket.on("meeting-list", function(meetings) {
-        console.log(meetings);
-        $('#meetingList').dynatable({
-            dataset: {
-                records: meetings
-            },
-            writers: {
-                'meetingDatetime': function (el, record) {
-                    var dateStr = el.innerHtml;
-                    var convertedDate = moment(dateStr).format("LLL");
-                    return convertedDate; // return original formatted date str for dateColumn
-                }
-            }
-        });
+
+        initMeetingList(meetings);
+
+        var dynatable = $('#meetingList').data('dynatable');
+        dynatable.records.updateFromJson({records: meetings});
+        dynatable.records.init();
+        dynatable.process();
     });
 
     socket.emit('meeting-list');
@@ -55,6 +49,24 @@ $(document).ready(function() {
             sweetAlert("Oops...", "A field is missing", "error");
         }
 
+        return false;
+
     });
 
 });
+
+function initMeetingList(meetings) {
+
+    $('#meetingList').dynatable({
+        dataset: {
+            records: meetings
+        },
+        writers: {
+            'meetingDatetime': function (el, record) {
+                var dateStr = el.innerHtml;
+                var convertedDate = moment(dateStr).format("LLL");
+                return convertedDate;
+            }
+        }
+    });
+};

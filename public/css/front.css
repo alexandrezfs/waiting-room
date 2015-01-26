@@ -1,0 +1,19 @@
+#dynatable-record-count-meetingList{
+    display: none;
+}
+
+#dynatable-pagination-links-meetingList {
+    display: none;
+}
+
+#dynatable-search-meetingList {
+    display: none;
+}
+
+.dynatable-per-page {
+    display: none;
+}
+
+.meetingList th a {
+    color: black;
+}
