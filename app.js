@@ -60,6 +60,7 @@ app.post('/login',
     function (req, res) {
         res.redirect('/dashboard');
     });
+app.get('/logout', routing.logoutRoute);
 
 app.listen(config.values.server_port, function() {
     console.log("server started on port " + config.values.server_port);

@@ -23,3 +23,9 @@ exports.frontRoute = function(req, res) {
         ws_addr: ws_addr
     });
 };
+
+exports.logoutRoute = function(req, res) {
+
+    req.logout();
+    res.redirect('/');
+};
