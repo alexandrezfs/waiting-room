@@ -57,7 +57,8 @@ app.post('/login',
         res.redirect('/dashboard');
     });
 app.get('/logout', routing.logoutRoute);
-app.get('/meeting/:_id', routing.getMeetingByIdRoute);
+app.get('/api/meeting/:_id', routing.getMeetingByIdRoute);
+app.get('/api/weather', routing.weatherRoute);
 
 app.listen(config.values.server_port, function () {
     console.log("server started on port " + config.values.server_port);

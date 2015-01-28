@@ -4,6 +4,7 @@ $(document).ready(function() {
 
     socket.on("meeting-list-today", listMeetings);
     socket.emit('meeting-list-today');
+    getWeather();
 
 });
 
@@ -47,7 +48,24 @@ function listMeetings(meetings) {
     dynatable.paginationPerPage.set(20);
     dynatable.process();
 
-}
+};
+
+function getWeather() {
+
+    $.get('/api/weather', function(data) {
+
+        var icon = data.currently.icon;
+        var temperature = data.currently.temperature;
+
+        $('#weatherTemperature').text(Math.round(temperature) + '°C');
+
+        var skycons = new Skycons({"color": "#3498db"});
+        skycons.add("weatherIcon", icon);
+        skycons.play();
+
+    });
+
+};
 
 setInterval(function() {
     $('#showTime').text(moment().format('LLLL'));

@@ -1,5 +1,7 @@
 var config = require('./config');
 var model = require('./model');
+var forecastUtil = require('./forecast-util');
+
 
 exports.indexRoute = function(req, res) {
 
@@ -42,4 +44,14 @@ exports.getMeetingByIdRoute = function(req, res) {
         res.json(meeting);
 
     });
+};
+
+exports.weatherRoute = function(req, res) {
+
+    forecastUtil.forecast.get(config.values.forecast_location, function(err, weather) {
+        if(err) return console.dir(err);
+        console.dir(weather);
+        res.json(weather);
+    });
+
 };

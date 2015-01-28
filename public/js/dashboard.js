@@ -129,7 +129,7 @@ function initMeetingList(meetings) {
 }
 function openUpdateModal(_id) {
 
-    $.get('/meeting/' + _id, function(meeting) {
+    $.get('/api/meeting/' + _id, function(meeting) {
 
         $('#updateModalLabel').text(meeting.clientFirstname + ' ' + meeting.clientLastname);
         $('#meetingIdUpdate').val(meeting._id);
