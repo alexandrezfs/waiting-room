@@ -61,6 +61,7 @@ app.post('/login',
         res.redirect('/dashboard');
     });
 app.get('/logout', routing.logoutRoute);
+app.get('/meeting/:_id', routing.getMeetingByIdRoute);
 
 app.listen(config.values.server_port, function() {
     console.log("server started on port " + config.values.server_port);
@@ -69,14 +70,20 @@ app.listen(config.values.server_port, function() {
 
 io.sockets.on('connection', function(socket){
 
-    socket.on('newMeeting', function(meetings) {
-        realtime.newMeeting(meetings, socket);
+    socket.on('newMeeting', function(meeting) {
+        realtime.newMeeting(meeting, socket);
     });
     socket.on('meeting-list', function() {
         realtime.meetingList(socket);
     });
     socket.on('meeting-list-today', function() {
         realtime.meetingListToday(socket);
+    });
+    socket.on('meeting-update', function(data) {
+        realtime.updateMeeting(socket, data._id, data.updatedMeeting);
+    });
+    socket.on('meeting-remove', function(data) {
+        realtime.removeMeeting(socket, data._id);
     });
 
 });

@@ -20,6 +20,49 @@
 
 <input type="hidden" id="ws_addr" value="<%= ws_addr %>">
 
+<!-- Modal -->
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="updateModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+
+                <form accept-charset="UTF-8" role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="clientFirstnameUpdate" placeholder="Client firstname">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="clientLastnameUpdate" placeholder="Client lastname">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="meetingReasonUpdate" placeholder="Reason">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="meetingDatetimeUpdate" placeholder="Date">
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" id="meetingStatusUpdate" placeholder="Status">
+                            <option value="pending">Pending</option>
+                            <option value="departure">Departure</option>
+                            <option value="arrival">Arrival</option>
+                        </select>
+                    </div>
+                    <input type="hidden" id="meetingIdUpdate">
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-error" id="delBtn">Remove meeting</button>
+                <button type="button" class="btn btn-primary" id="updBtn">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row affix-row">
     <div class="col-sm-3 col-md-2 affix-sidebar">
         <div class="sidebar-nav">
@@ -81,6 +124,13 @@
                 <div class="form-group">
                     <input type="text" class="form-control" id="meetingDatetime" placeholder="Date">
                 </div>
+                <div class="form-group">
+                    <select class="form-control" id="meetingStatus" placeholder="Status">
+                        <option value="pending">Pending</option>
+                        <option value="departure">Departure</option>
+                        <option value="arrival">Arrival</option>
+                    </select>
+                </div>
                 <button class="btn btn-default btn-success" id="addBtn">ADD</button>
             </form>
 
@@ -92,6 +142,8 @@
                     <th data-dynatable-column="clientLastname">Lastname</th>
                     <th data-dynatable-column="meetingReason">Reason</th>
                     <th data-dynatable-column="meetingDatetime">Meeting datetime</th>
+                    <th data-dynatable-column="meetingStatus">Meeting status</th>
+                    <th data-dynatable-column="actions">#</th>
                     </thead>
                     <tbody>
 

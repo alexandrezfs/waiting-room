@@ -1,4 +1,5 @@
 var config = require('./config');
+var model = require('./model');
 
 exports.indexRoute = function(req, res) {
 
@@ -28,4 +29,17 @@ exports.logoutRoute = function(req, res) {
 
     req.logout();
     res.redirect('/');
+};
+
+exports.getMeetingByIdRoute = function(req, res) {
+
+    model.Meeting.findOne({_id: req.params._id}, function(err, meeting) {
+
+        if(err) {
+            res.json({message: "error"});
+        }
+
+        res.json(meeting);
+
+    });
 };

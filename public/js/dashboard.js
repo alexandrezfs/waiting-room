@@ -2,58 +2,96 @@ var socket = io.connect($("#ws_addr").val(), {transports: ['websocket', 'polling
 
 $(document).ready(function() {
 
-    socket.on("meeting-list", function(meetings) {
-
-        initMeetingList(meetings);
-
-        var dynatable = $('#meetingList').data('dynatable');
-        dynatable.records.updateFromJson({records: meetings});
-        dynatable.records.init();
-        dynatable.process();
-    });
-
+    initDatetimePickers();
+    socket.on("meeting-list", listMeetings);
     socket.emit('meeting-list');
+    $("#addBtn").click(clickAddBtn);
+    $("#updBtn").click(updateMeeting);
+    $("#delBtn").click(deleteMeeting);
 
-    $("#meetingDatetime").datetimepicker();
+});
 
-    $("#addBtn").click(function() {
+function listMeetings(meetings) {
 
-        var formValues = {
-            clientFirstname : $("#clientFirstname").val(),
-            clientLastname : $("#clientLastname").val(),
-            meetingReason : $("#meetingReason").val(),
-            meetingDatetime : moment($("#meetingDatetime").val(), "YYYY/MM/DD h:mm").toDate()
-        };
+    initMeetingList(meetings);
 
-        var isFormValid = true;
+    var dynatable = $('#meetingList').data('dynatable');
+    dynatable.records.updateFromJson({records: meetings});
+    dynatable.records.init();
+    dynatable.process();
 
-        Object.keys(formValues).forEach(function(key) {
+}
 
-            var value = formValues[key];
+function clickAddBtn() {
 
-            if(value == null || value.length == 0) {
-                isFormValid = false;
-            }
+    validateForm('add', function(response, formValues) {
 
-        });
+        if(response) {
 
-        if(isFormValid) {
-            socket.emit('newMeeting', formValues);
             $("#clientFirstname").val("");
             $("#clientLastname").val("");
             $("#meetingReason").val("");
             $("#meetingDatetime").val("");
 
+            socket.emit('newMeeting', formValues);
         }
         else {
             sweetAlert("Oops...", "A field is missing", "error");
         }
 
-        return false;
+    });
+
+    return false;
+
+}
+
+function validateForm(formType, callback) {
+
+    var formValues = {};
+
+    if(formType == "add") {
+
+        formValues = {
+            clientFirstname : $("#clientFirstname").val(),
+            clientLastname : $("#clientLastname").val(),
+            meetingReason : $("#meetingReason").val(),
+            meetingDatetime : moment($("#meetingDatetime").val(), "YYYY/MM/DD h:mm").toDate(),
+            meetingStatus: $("#meetingStatus").val()
+        };
+
+    }
+    else if(formType == "update") {
+
+        formValues = {
+            clientFirstname : $("#clientFirstnameUpdate").val(),
+            clientLastname : $("#clientLastnameUpdate").val(),
+            meetingReason : $("#meetingReasonUpdate").val(),
+            meetingDatetime : moment($("#meetingDatetimeUpdate").val(), "YYYY/MM/DD h:mm").toDate(),
+            meetingStatus: $("#meetingStatusUpdate").val()
+        };
+
+    }
+
+    var isFormValid = true;
+
+    Object.keys(formValues).forEach(function(key) {
+
+        var value = formValues[key];
+
+        if(value == null || value.length == 0) {
+            isFormValid = false;
+        }
 
     });
 
-});
+    if(isFormValid) {
+        callback(true, formValues);
+    }
+    else {
+        callback(false, formValues);
+    }
+
+}
 
 function initMeetingList(meetings) {
 
@@ -63,10 +101,83 @@ function initMeetingList(meetings) {
         },
         writers: {
             'meetingDatetime': function (el, record) {
-                var dateStr = el.innerHtml;
-                var convertedDate = moment(dateStr).format("LLL");
+                var convertedDate = moment(el.meetingDatetime).format("LLL");
                 return convertedDate;
+            },
+            'actions': function (el, record) {
+                return '<a href="#" onclick="openUpdateModal(\'' + el._id + '\');"><span class="glyphicon glyphicon-eye-open"></span></a>';
+            },
+            'meetingStatus': function(el, record) {
+
+                var status = el.meetingStatus;
+
+                if(status == 'departure') {
+                    return '<button class="btn btn-primary btn-sm" type="button">Departure</button>';
+                }
+                else if(status == 'pending') {
+                    return '<button class="btn btn-success btn-sm" type="button">Pending</button>';
+                }
+                else if(status == 'arrival') {
+                    return '<button class="btn btn-danger btn-sm" type="button">Arrival</button>';
+                }
+                else {
+                    return status;
+                }
             }
         }
     });
+};
+
+function openUpdateModal(_id) {
+
+    $.get('/meeting/' + _id, function(meeting) {
+
+        $('#updateModalLabel').text(meeting.clientFirstname + ' ' + meeting.clientLastname);
+        $('#meetingIdUpdate').val(meeting._id);
+        $('#clientFirstnameUpdate').val(meeting.clientFirstname);
+        $('#clientLastnameUpdate').val(meeting.clientLastname);
+        $('#meetingReasonUpdate').val(meeting.meetingReason);
+        $('#meetingDatetimeUpdate').val(moment(meeting.meetingDatetime).format('YYYY/MM/DD HH:mm'));
+        $('#meetingStatusUpdate').val(meeting.meetingStatus);
+
+        $('#updateModal').modal('show');
+    });
+
+    return false;
+};
+
+function updateMeeting() {
+
+    validateForm('update', function(response, formValues) {
+
+        if(response) {
+
+            socket.emit('meeting-update', {
+                _id: $("#meetingIdUpdate").val(),
+                updatedMeeting: formValues
+            });
+
+            $('#updateModal').modal('hide');
+            sweetAlert("Updated", "Meeting updated !", "success");
+        }
+        else {
+            sweetAlert("Oops...", "A field is missing", "error");
+            $('#updateModal').modal('hide');
+        }
+
+    });
+
+};
+
+function deleteMeeting() {
+
+    socket.emit('meeting-remove', {_id: $("#meetingIdUpdate").val()});
+
+    $('#updateModal').modal('hide');
+    sweetAlert("Deleted", "Meeting deleted !", "success");
+};
+
+function initDatetimePickers() {
+    $("#meetingDatetime").datetimepicker();
+    $("#meetingDatetimeUpdate").datetimepicker();
 };
