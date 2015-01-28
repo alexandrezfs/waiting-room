@@ -15,11 +15,7 @@ var realtime = require('./realtime');
 var io = require('socket.io').listen(3001);
 
 io.set('transports', [
-    'websocket'
-    , 'flashsocket'
-    , 'htmlfile'
-    , 'xhr-polling'
-    , 'jsonp-polling'
+    'websocket', 'flashsocket', 'htmlfile', 'xhr-polling', 'jsonp-polling'
 ]);
 
 app.use(function (req, res, next) {
@@ -53,7 +49,7 @@ passport.use(new LocalStrategy(
 
 
 app.get('/', routing.indexRoute);
-app.get('/dashboard', routing.dashboardRoute);
+app.get('/dashboard', passportUtil.isLoggedIn, routing.dashboardRoute);
 app.get('/front', routing.frontRoute);
 app.post('/login',
     passport.authenticate('local', {failureRedirect: '/', failureFlash: true}),
@@ -63,26 +59,26 @@ app.post('/login',
 app.get('/logout', routing.logoutRoute);
 app.get('/meeting/:_id', routing.getMeetingByIdRoute);
 
-app.listen(config.values.server_port, function() {
+app.listen(config.values.server_port, function () {
     console.log("server started on port " + config.values.server_port);
     fixture.registerAdminUser();
 });
 
-io.sockets.on('connection', function(socket){
+io.sockets.on('connection', function (socket) {
 
-    socket.on('newMeeting', function(meeting) {
+    socket.on('newMeeting', function (meeting) {
         realtime.newMeeting(meeting, socket);
     });
-    socket.on('meeting-list', function() {
+    socket.on('meeting-list', function () {
         realtime.meetingList(socket);
     });
-    socket.on('meeting-list-today', function() {
+    socket.on('meeting-list-today', function () {
         realtime.meetingListToday(socket);
     });
-    socket.on('meeting-update', function(data) {
+    socket.on('meeting-update', function (data) {
         realtime.updateMeeting(socket, data._id, data.updatedMeeting);
     });
-    socket.on('meeting-remove', function(data) {
+    socket.on('meeting-remove', function (data) {
         realtime.removeMeeting(socket, data._id);
     });
 

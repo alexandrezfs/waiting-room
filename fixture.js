@@ -9,10 +9,10 @@ exports.registerAdminUser = function() {
 
         if(!user) {
 
-            var user = new model.User(admin_user);
-            user.save(admin_user, function(err, user) {
+            var newUser = new model.User(admin_user);
+            newUser.save(admin_user, function(err, savedUser) {
                 console.log("User saved !");
-                console.log(user);
+                console.log(savedUser);
             });
         }
     });

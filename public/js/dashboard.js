@@ -126,8 +126,7 @@ function initMeetingList(meetings) {
             }
         }
     });
-};
-
+}
 function openUpdateModal(_id) {
 
     $.get('/meeting/' + _id, function(meeting) {
@@ -144,8 +143,7 @@ function openUpdateModal(_id) {
     });
 
     return false;
-};
-
+}
 function updateMeeting() {
 
     validateForm('update', function(response, formValues) {
@@ -167,17 +165,15 @@ function updateMeeting() {
 
     });
 
-};
-
+}
 function deleteMeeting() {
 
     socket.emit('meeting-remove', {_id: $("#meetingIdUpdate").val()});
 
     $('#updateModal').modal('hide');
     sweetAlert("Deleted", "Meeting deleted !", "success");
-};
-
+}
 function initDatetimePickers() {
     $("#meetingDatetime").datetimepicker();
     $("#meetingDatetimeUpdate").datetimepicker();
-};
+}

@@ -14,7 +14,7 @@ function initMeetingList(meetings) {
         },
         writers: {
             'meetingDatetime': function (el, record) {
-                var convertedDate = moment(el.meetingDatetime).format("h:mm");
+                var convertedDate = moment(el.meetingDatetime).format("hh:mm");
                 return convertedDate;
             },
             'meetingStatus': function(el, record) {
@@ -36,8 +36,7 @@ function initMeetingList(meetings) {
             }
         }
     });
-};
-
+}
 function listMeetings(meetings) {
 
     initMeetingList(meetings);
@@ -49,3 +48,7 @@ function listMeetings(meetings) {
     dynatable.process();
 
 }
+
+setInterval(function() {
+    $('#showTime').text(moment().format('LLLL'));
+}, 1000);
