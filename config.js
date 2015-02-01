@@ -4,6 +4,7 @@ exports.values = {
     ws_addr: 'ws://localhost:3001',
     forecast_api_key: '12f4d5b81651fbbafe90ab77ef52922d',
     forecast_location: [45.7667, 5],
+    company_name: 'stamcar',
     admin_user: {
         username: 'stamcar',
         email: 'stamcar.toyota@neuf.fr',

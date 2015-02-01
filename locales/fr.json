@@ -15,5 +15,8 @@
     "front": "Façade",
     "departure": "Départ",
     "arrival": "Arrivée",
-    "pending": "En attente"
+    "pending": "En attente",
+    "company_info": "Infos société",
+    "company_name": "Nom société",
+    "company_logo": "Logo société"
 }

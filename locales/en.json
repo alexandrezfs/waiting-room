@@ -15,5 +15,8 @@
   "front": "Front",
   "departure": "Departure",
   "arrival": "Arrival",
-  "pending": "Pending"
+  "pending": "Pending",
+  "company_info": "Company infos",
+  "company_name": "Company name",
+  "company_logo": "Company logo"
 }

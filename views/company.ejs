@@ -26,8 +26,6 @@
 </head>
 <body>
 
-<input type="hidden" id="ws_addr" value="<%= ws_addr %>">
-
 <!-- Modal -->
 <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -81,49 +79,16 @@
         <div class="container">
 
             <div class="page-header">
-                <h3><span class="glyphicon glyphicon-dashboard"></span> <%= __('dashboard') %></h3>
+                <h4><span class="glyphicon glyphicon-pencil"></span> <%= __('company_info') %></h4>
             </div>
 
             <form class="form-inline">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="clientFirstname" placeholder="<%= __('client_firstname') %>">
+                    <label for="company_name">Nom société</label>
+                    <input type="text" class="form-control" id="company_name" placeholder="<%= __('company_name') %>" value="<%= company_name %>">
                 </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" id="clientLastname" placeholder="<%= __('client_lastname') %>">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" id="meetingReason" placeholder="<%= __('reason') %>">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" id="meetingDatetime" placeholder="<%= __('meeting_datetime') %>">
-                </div>
-                <div class="form-group">
-                    <select class="form-control" id="meetingStatus" placeholder="<%= __('meeting_status') %>">
-                        <option value="pending"><%= __('pending') %></option>
-                        <option value="departure"><%= __('departure') %></option>
-                        <option value="arrival"><%= __('arrival') %></option>
-                    </select>
-                </div>
-                <button class="btn btn-default btn-success" id="addBtn"><%= __('add') %></button>
+                <button class="btn btn-default btn-success" id="saveBtn"><%= __('save') %></button>
             </form>
-
-            <div class="meetingList">
-
-                <table class="table table-striped table-bordered" id="meetingList">
-                    <thead>
-                    <th data-dynatable-column="clientFirstname"><%= __('client_firstname') %></th>
-                    <th data-dynatable-column="clientLastname"><%= __('client_lastname') %></th>
-                    <th data-dynatable-column="meetingReason"><%= __('reason') %></th>
-                    <th data-dynatable-column="meetingDatetime"><%= __('meeting_datetime') %></th>
-                    <th data-dynatable-column="meetingStatus"><%= __('meeting_status') %></th>
-                    <th data-dynatable-column="actions">#</th>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
-
-            </div>
 
         </div>
     </div>
@@ -136,7 +101,7 @@
 <script src="bower_components/dynatable/jquery.dynatable.js"></script>
 <script src="js/lib/socket.io.js"></script>
 <script src="js/lib/jquery.datetimepicker.js"></script>
-<script src="js/dashboard.js"></script>
+<script src="js/company.js"></script>
 
 </body>
 </html>

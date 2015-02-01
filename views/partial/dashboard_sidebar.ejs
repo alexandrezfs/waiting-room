@@ -1,0 +1,47 @@
+<div class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                data-target=".sidebar-navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <span class="visible-xs navbar-brand">Sidebar menu</span>
+    </div>
+    <div class="navbar-collapse collapse sidebar-navbar-collapse">
+        <ul class="nav navbar-nav" id="sidenav01">
+            <li class="active">
+                <a href="#" data-toggle="collapse" data-parent="#sidenav01" class="collapsed">
+                    <h4>
+                        Waiting Room
+                    </h4>
+                </a>
+            </li>
+            <li>
+                <a href="/dashboard" class="collapsed">
+                    <span class="glyphicon glyphicon-dashboard"></span> <%= __('dashboard') %><span
+                            class="caret pull-right"></span>
+                </a>
+            </li>
+            <li>
+                <a href="/front" class="collapsed">
+                    <span class="glyphicon glyphicon-facetime-video"></span> <%= __('front') %><span
+                            class="caret pull-right"></span>
+                </a>
+            </li>
+            <li>
+                <a href="/company" class="collapsed">
+                    <span class="glyphicon glyphicon-pencil"></span> <%= __('company_info') %><span
+                            class="caret pull-right"></span>
+                </a>
+            </li>
+            <li>
+                <a href="/logout" class="collapsed">
+                    <span class="glyphicon glyphicon-log-out"></span> <%= __('logout') %><span
+                            class="caret pull-right"></span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -22,8 +22,11 @@ exports.frontRoute = function(req, res) {
 
     var ws_addr = config.values.ws_addr;
 
-    res.render('front', {
-        ws_addr: ws_addr
+    model.Setting.findOne({key: 'company_name'}, function(err, setting) {
+        res.render('front', {
+            ws_addr: ws_addr,
+            company_name: setting.value
+        });
     });
 };
 
@@ -52,6 +55,32 @@ exports.weatherRoute = function(req, res) {
         if(err) return console.dir(err);
         console.dir(weather);
         res.json(weather);
+    });
+
+};
+
+exports.companyRoute = function(req, res) {
+
+    model.Setting.findOne({key: 'company_name'}, function(err, setting) {
+        res.render('company', {
+            company_name: setting.value
+        });
+    });
+
+};
+
+exports.saveCompanyName = function(req, res) {
+
+    var company_name = req.body.company_name;
+
+    var settingValues = {
+        key: 'company_name',
+        value: company_name
+    };
+
+    model.Setting.update({key: 'company_name'}, settingValues, function(err, rowsAffected) {
+        console.log(settingValues);
+        res.json(settingValues);
     });
 
 };

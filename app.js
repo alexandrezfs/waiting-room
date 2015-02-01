@@ -60,7 +60,8 @@ passport.use(new LocalStrategy(
 
 app.get('/', routing.indexRoute);
 app.get('/dashboard', passportUtil.isLoggedIn, routing.dashboardRoute);
-app.get('/front', routing.frontRoute);
+app.get('/front', passportUtil.isLoggedIn, routing.frontRoute);
+app.get('/company', passportUtil.isLoggedIn, routing.companyRoute);
 app.post('/login',
     passport.authenticate('local', {failureRedirect: '/', failureFlash: true}),
     function (req, res) {
@@ -69,10 +70,12 @@ app.post('/login',
 app.get('/logout', routing.logoutRoute);
 app.get('/api/meeting/:_id', routing.getMeetingByIdRoute);
 app.get('/api/weather', routing.weatherRoute);
+app.post('/api/saveCompanyName', passportUtil.isLoggedIn, routing.saveCompanyName);
 
 app.listen(config.values.server_port, function () {
     console.log("server started on port " + config.values.server_port);
     fixture.registerAdminUser();
+    fixture.registerCompanyName();
 });
 
 io.sockets.on('connection', function (socket) {

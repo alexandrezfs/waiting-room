@@ -27,3 +27,13 @@ var MeetingSchema = new mongoose.Schema({
 });
 
 exports.Meeting = mongoose.model('Meeting', MeetingSchema);
+
+
+var SettingSchema = new mongoose.Schema({
+    key: String,
+    value: String,
+    created_at: { type: Date, default: Date.now },
+    updated_at: { type: Date, default: Date.now }
+});
+
+exports.Setting = mongoose.model('Setting', SettingSchema);

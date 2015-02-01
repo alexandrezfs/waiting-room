@@ -17,3 +17,7 @@
 .meetingList th a {
     color: black;
 }
+
+#meetingList tr {
+    font-size: 1.5em;
+}
