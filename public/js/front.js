@@ -4,7 +4,6 @@ $(document).ready(function() {
 
     socket.on("meeting-list-today", listMeetings);
     socket.emit('meeting-list-today');
-    getWeather();
 
 });
 
@@ -23,13 +22,13 @@ function initMeetingList(meetings) {
                 var status = el.meetingStatus;
 
                 if(status == 'departure') {
-                    return '<button class="btn btn-primary btn-sm" type="button">Departure</button>';
+                    return buttons.departure;
                 }
                 else if(status == 'pending') {
-                    return '<button class="btn btn-success btn-sm" type="button">Pending</button>';
+                    return buttons.pending;
                 }
                 else if(status == 'arrival') {
-                    return '<button class="btn btn-danger btn-sm" type="button">Arrival</button>';
+                    return buttons.arrival;
                 }
                 else {
                     return status;
@@ -47,6 +46,8 @@ function listMeetings(meetings) {
     dynatable.records.init();
     dynatable.paginationPerPage.set(20);
     dynatable.process();
+
+    getWeather();
 
 };
 

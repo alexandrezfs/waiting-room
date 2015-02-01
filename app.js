@@ -13,6 +13,13 @@ var fixture = require('./fixture');
 var http = require('http').Server(app);
 var realtime = require('./realtime');
 var io = require('socket.io').listen(3001);
+var i18n = require("i18n");
+
+i18n.configure({
+    locales:['en', 'fr'],
+    defaultLocale: 'fr',
+    directory: __dirname + '/locales'
+});
 
 io.set('transports', [
     'websocket', 'flashsocket', 'htmlfile', 'xhr-polling', 'jsonp-polling'
@@ -24,6 +31,9 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-type, Content-Range, Content-Disposition, Content-Description');
     res.setHeader('Access-Control-Allow-Credentials', 'true');
+
+    app.use(i18n.init);
+    app.locals.__ = i18n.__;
 
     next();
 });

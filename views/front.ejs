@@ -15,6 +15,14 @@
     <link href="css/lib/jquery.datetimepicker.css" rel="stylesheet">
     <link href="css/front.css" rel="stylesheet">
 
+    <script>
+        var buttons = {
+            departure: '<button class="btn btn-primary btn-sm" type="button">' + '<%= __('departure') %>' + '</button>',
+            pending: '<button class="btn btn-success btn-sm" type="button">' + '<%= __('pending') %>' + '</button>',
+            arrival: '<button class="btn btn-danger btn-sm" type="button">' + '<%= __('arrival') %>' + '</button>'
+        };
+    </script>
+    
 </head>
 <body>
 
@@ -45,11 +53,11 @@
 
                 <table class="table table-striped" id="meetingList">
                     <thead>
-                    <th data-dynatable-column="meetingDatetime">Time</th>
-                    <th data-dynatable-column="clientFirstname">Firstname</th>
-                    <th data-dynatable-column="clientLastname">Lastname</th>
-                    <th data-dynatable-column="meetingReason">Reason</th>
-                    <th data-dynatable-column="meetingStatus">Status</th>
+                    <th data-dynatable-column="clientFirstname"><%= __('client_firstname') %></th>
+                    <th data-dynatable-column="clientLastname"><%= __('client_lastname') %></th>
+                    <th data-dynatable-column="meetingReason"><%= __('reason') %></th>
+                    <th data-dynatable-column="meetingDatetime"><%= __('meeting_datetime') %></th>
+                    <th data-dynatable-column="meetingStatus"><%= __('meeting_status') %></th>
                     </thead>
                     <tbody>
 

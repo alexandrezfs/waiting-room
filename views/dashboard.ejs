@@ -15,6 +15,14 @@
     <link href="css/lib/jquery.datetimepicker.css" rel="stylesheet">
     <link href="css/dashboard.css" rel="stylesheet">
 
+    <script>
+        var buttons = {
+            departure: '<button class="btn btn-primary btn-sm" type="button">' + '<%= __('departure') %>' + '</button>',
+            pending: '<button class="btn btn-success btn-sm" type="button">' + '<%= __('pending') %>' + '</button>',
+            arrival: '<button class="btn btn-danger btn-sm" type="button">' + '<%= __('arrival') %>' + '</button>'
+        };
+    </script>
+
 </head>
 <body>
 
@@ -32,22 +40,22 @@
 
                 <form accept-charset="UTF-8" role="form">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="clientFirstnameUpdate" placeholder="Client firstname">
+                        <input type="text" class="form-control" id="clientFirstnameUpdate" placeholder="<%= __('client_firstname') %>">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="clientLastnameUpdate" placeholder="Client lastname">
+                        <input type="text" class="form-control" id="clientLastnameUpdate" placeholder="<%= __('client_lastname') %>">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="meetingReasonUpdate" placeholder="Reason">
+                        <input type="text" class="form-control" id="meetingReasonUpdate" placeholder="<%= __('reason') %>">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="meetingDatetimeUpdate" placeholder="Date">
+                        <input type="text" class="form-control" id="meetingDatetimeUpdate" placeholder="<%= __('meeting_datetime') %>">
                     </div>
                     <div class="form-group">
-                        <select class="form-control" id="meetingStatusUpdate" placeholder="Status">
-                            <option value="pending">Pending</option>
-                            <option value="departure">Departure</option>
-                            <option value="arrival">Arrival</option>
+                        <select class="form-control" id="meetingStatusUpdate" placeholder="<%= __('meeting_status') %>">
+                            <option value="pending"><%= __('pending') %></option>
+                            <option value="departure"><%= __('departure') %></option>
+                            <option value="arrival"><%= __('arrival') %></option>
                         </select>
                     </div>
                     <input type="hidden" id="meetingIdUpdate">
@@ -55,9 +63,9 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-error" id="delBtn">Remove meeting</button>
-                <button type="button" class="btn btn-primary" id="updBtn">Save changes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"><%= __('close') %></button>
+                <button type="button" class="btn btn-error" id="delBtn"><%= __('remove_meeting') %></button>
+                <button type="button" class="btn btn-primary" id="updBtn"><%= __('save') %></button>
             </div>
         </div>
     </div>
@@ -87,14 +95,20 @@
                             </a>
                         </li>
                         <li>
+                            <a href="/dashboard" class="collapsed">
+                                <span class="glyphicon glyphicon-dashboard"></span> <%= __('dashboard') %><span
+                                        class="caret pull-right"></span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="/front" class="collapsed">
-                                <span class="glyphicon glyphicon-facetime-video"></span> Front<span
+                                <span class="glyphicon glyphicon-facetime-video"></span> <%= __('front') %><span
                                         class="caret pull-right"></span>
                             </a>
                         </li>
                         <li>
                             <a href="/logout" class="collapsed">
-                                <span class="glyphicon glyphicon-log-out"></span> Logout<span
+                                <span class="glyphicon glyphicon-log-out"></span> <%= __('logout') %><span
                                         class="caret pull-right"></span>
                             </a>
                         </li>
@@ -108,41 +122,41 @@
         <div class="container">
 
             <div class="page-header">
-                <h3><span class="glyphicon glyphicon-th-list"></span> Dashboard</h3>
+                <h3><span class="glyphicon glyphicon-dashboard"></span> <%= __('dashboard') %></h3>
             </div>
 
             <form class="form-inline">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="clientFirstname" placeholder="Client firstname">
+                    <input type="text" class="form-control" id="clientFirstname" placeholder="<%= __('client_firstname') %>">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="clientLastname" placeholder="Client lastname">
+                    <input type="text" class="form-control" id="clientLastname" placeholder="<%= __('client_lastname') %>">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="meetingReason" placeholder="Reason">
+                    <input type="text" class="form-control" id="meetingReason" placeholder="<%= __('reason') %>">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="meetingDatetime" placeholder="Date">
+                    <input type="text" class="form-control" id="meetingDatetime" placeholder="<%= __('meeting_datetime') %>">
                 </div>
                 <div class="form-group">
-                    <select class="form-control" id="meetingStatus" placeholder="Status">
-                        <option value="pending">Pending</option>
-                        <option value="departure">Departure</option>
-                        <option value="arrival">Arrival</option>
+                    <select class="form-control" id="meetingStatus" placeholder="<%= __('meeting_status') %>">
+                        <option value="pending"><%= __('pending') %></option>
+                        <option value="departure"><%= __('departure') %></option>
+                        <option value="arrival"><%= __('arrival') %></option>
                     </select>
                 </div>
-                <button class="btn btn-default btn-success" id="addBtn">ADD</button>
+                <button class="btn btn-default btn-success" id="addBtn"><%= __('add') %></button>
             </form>
 
             <div class="meetingList">
 
                 <table class="table table-striped table-bordered" id="meetingList">
                     <thead>
-                    <th data-dynatable-column="clientFirstname">Firstname</th>
-                    <th data-dynatable-column="clientLastname">Lastname</th>
-                    <th data-dynatable-column="meetingReason">Reason</th>
-                    <th data-dynatable-column="meetingDatetime">Meeting datetime</th>
-                    <th data-dynatable-column="meetingStatus">Meeting status</th>
+                    <th data-dynatable-column="clientFirstname"><%= __('client_firstname') %></th>
+                    <th data-dynatable-column="clientLastname"><%= __('client_lastname') %></th>
+                    <th data-dynatable-column="meetingReason"><%= __('reason') %></th>
+                    <th data-dynatable-column="meetingDatetime"><%= __('meeting_datetime') %></th>
+                    <th data-dynatable-column="meetingStatus"><%= __('meeting_status') %></th>
                     <th data-dynatable-column="actions">#</th>
                     </thead>
                     <tbody>

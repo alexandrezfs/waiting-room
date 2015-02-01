@@ -1,0 +1,19 @@
+{
+	"Please_sign_in": "Se connecter",
+	"client_firstname": "Prénom client",
+	"client_lastname": "Nom client",
+	"reason": "Raison",
+	"meeting_datetime": "Date RDV",
+	"meeting_status": "Statut RDV",
+	"add": "Ajout",
+	"update": "Enregistrer",
+	"close": "Fermer",
+	"remove_meeting": "Supprimer RDV",
+	"save": "Sauvegarder",
+	"dashboard": "Panneau d'administration",
+    "logout": "Se deconnecter",
+    "front": "Façade",
+    "departure": "Départ",
+    "arrival": "Arrivée",
+    "pending": "En attente"
+}

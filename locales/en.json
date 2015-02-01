@@ -1,0 +1,19 @@
+{
+  "Please_sign_in": "Please sign in",
+  "client_firstname": "Client firstname",
+  "client_lastname": "Client lastname",
+  "reason": "Reason",
+  "meeting_datetime": "Meeting datetime",
+  "meeting_status": "Meeting status",
+  "add": "Add",
+  "update": "Save",
+  "close": "Close",
+  "remove_meeting": "Remove meeting",
+  "save": "Save",
+  "dashboard": "Dashboard",
+  "logout": "Logout",
+  "front": "Front",
+  "departure": "Departure",
+  "arrival": "Arrival",
+  "pending": "Pending"
+}
