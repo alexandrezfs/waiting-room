@@ -3,12 +3,12 @@ var model = require('./model');
 var forecastUtil = require('./forecast-util');
 
 
-exports.indexRoute = function(req, res) {
+exports.indexRoute = function (req, res) {
 
     res.render('index');
 };
 
-exports.dashboardRoute = function(req, res) {
+exports.dashboardRoute = function (req, res) {
 
     var ws_addr = config.values.ws_addr;
 
@@ -18,11 +18,11 @@ exports.dashboardRoute = function(req, res) {
 
 };
 
-exports.frontRoute = function(req, res) {
+exports.frontRoute = function (req, res) {
 
     var ws_addr = config.values.ws_addr;
 
-    model.Setting.findOne({key: 'company_name'}, function(err, setting) {
+    model.Setting.findOne({key: 'company_name'}, function (err, setting) {
         res.render('front', {
             ws_addr: ws_addr,
             company_name: setting.value
@@ -30,17 +30,17 @@ exports.frontRoute = function(req, res) {
     });
 };
 
-exports.logoutRoute = function(req, res) {
+exports.logoutRoute = function (req, res) {
 
     req.logout();
     res.redirect('/');
 };
 
-exports.getMeetingByIdRoute = function(req, res) {
+exports.getMeetingByIdRoute = function (req, res) {
 
-    model.Meeting.findOne({_id: req.params._id}, function(err, meeting) {
+    model.Meeting.findOne({_id: req.params._id}, function (err, meeting) {
 
-        if(err) {
+        if (err) {
             res.json({message: "error"});
         }
 
@@ -49,19 +49,19 @@ exports.getMeetingByIdRoute = function(req, res) {
     });
 };
 
-exports.weatherRoute = function(req, res) {
+exports.weatherRoute = function (req, res) {
 
-    forecastUtil.forecast.get(config.values.forecast_location, function(err, weather) {
-        if(err) return console.dir(err);
+    forecastUtil.forecast.get(config.values.forecast_location, function (err, weather) {
+        if (err) return console.dir(err);
         console.dir(weather);
         res.json(weather);
     });
 
 };
 
-exports.companyRoute = function(req, res) {
+exports.companyRoute = function (req, res) {
 
-    model.Setting.findOne({key: 'company_name'}, function(err, setting) {
+    model.Setting.findOne({key: 'company_name'}, function (err, setting) {
         res.render('company', {
             company_name: setting.value
         });
@@ -69,7 +69,7 @@ exports.companyRoute = function(req, res) {
 
 };
 
-exports.saveCompanyName = function(req, res) {
+exports.saveCompanyName = function (req, res) {
 
     var company_name = req.body.company_name;
 
@@ -78,9 +78,13 @@ exports.saveCompanyName = function(req, res) {
         value: company_name
     };
 
-    model.Setting.update({key: 'company_name'}, settingValues, function(err, rowsAffected) {
+    model.Setting.update({key: 'company_name'}, settingValues, function (err, rowsAffected) {
         console.log(settingValues);
         res.json(settingValues);
     });
 
 };
+
+exports.loginRoute = function (req, res) {
+    res.redirect('/dashboard');
+}

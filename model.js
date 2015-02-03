@@ -9,8 +9,8 @@ var UserSchema = new mongoose.Schema({
     password: String,
     firstname: String,
     lastname: String,
-    created_at: { type: Date, default: Date.now },
-    updated_at: { type: Date, default: Date.now }
+    created_at: {type: Date, default: Date.now},
+    updated_at: {type: Date, default: Date.now}
 });
 
 exports.User = mongoose.model('User', UserSchema);
@@ -21,9 +21,9 @@ var MeetingSchema = new mongoose.Schema({
     clientLastname: String,
     meetingReason: String,
     meetingStatus: String,
-    meetingDatetime: { type: Date, default: Date.now },
-    created_at: { type: Date, default: Date.now },
-    updated_at: { type: Date, default: Date.now }
+    meetingDatetime: {type: Date, default: Date.now},
+    created_at: {type: Date, default: Date.now},
+    updated_at: {type: Date, default: Date.now}
 });
 
 exports.Meeting = mongoose.model('Meeting', MeetingSchema);
@@ -32,8 +32,8 @@ exports.Meeting = mongoose.model('Meeting', MeetingSchema);
 var SettingSchema = new mongoose.Schema({
     key: String,
     value: String,
-    created_at: { type: Date, default: Date.now },
-    updated_at: { type: Date, default: Date.now }
+    created_at: {type: Date, default: Date.now},
+    updated_at: {type: Date, default: Date.now}
 });
 
 exports.Setting = mongoose.model('Setting', SettingSchema);

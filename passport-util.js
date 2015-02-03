@@ -1,11 +1,17 @@
 var model = require('./model');
 
-exports.strategy = function(username, password, done) {
-    model.User.findOne({ username: username }, function (err, user) {
+exports.strategy = function (username, password, done) {
+    model.User.findOne({username: username}, function (err, user) {
 
-        if (err) { return done(err); }
-        if (!user) { return done(null, false); }
-        if (user.password != password) { return done(null, false); }
+        if (err) {
+            return done(err);
+        }
+        if (!user) {
+            return done(null, false);
+        }
+        if (user.password != password) {
+            return done(null, false);
+        }
         return done(null, user);
     });
 };
@@ -20,7 +26,7 @@ exports.deserializeUser = function (_id, done) {
     });
 };
 
-exports.isLoggedIn = function(req, res, next) {
+exports.isLoggedIn = function (req, res, next) {
 
     // if user is authenticated in the session, carry on
     if (req.isAuthenticated())

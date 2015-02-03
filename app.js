@@ -62,11 +62,7 @@ app.get('/', routing.indexRoute);
 app.get('/dashboard', passportUtil.isLoggedIn, routing.dashboardRoute);
 app.get('/front', passportUtil.isLoggedIn, routing.frontRoute);
 app.get('/company', passportUtil.isLoggedIn, routing.companyRoute);
-app.post('/login',
-    passport.authenticate('local', {failureRedirect: '/', failureFlash: true}),
-    function (req, res) {
-        res.redirect('/dashboard');
-    });
+app.post('/login', passport.authenticate('local', {failureRedirect: '/', failureFlash: true}), routing.loginRoute);
 app.get('/logout', routing.logoutRoute);
 app.get('/api/meeting/:_id', routing.getMeetingByIdRoute);
 app.get('/api/weather', routing.weatherRoute);
