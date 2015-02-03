@@ -87,4 +87,4 @@ exports.saveCompanyName = function (req, res) {
 
 exports.loginRoute = function (req, res) {
     res.redirect('/dashboard');
-}
+};
