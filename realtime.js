@@ -48,6 +48,12 @@ exports.updateMeeting = function (socket, _id, updatedMeeting) {
 };
 
 
+exports.refresh = function (socket) {
+
+    socket.emit('refresh');
+    socket.broadcast.emit('refresh');
+};
+
 var meetingList = function (socket) {
 
     model.Meeting.find({}).sort({created_at: -1}).exec(function (err, meetings) {
@@ -55,7 +61,6 @@ var meetingList = function (socket) {
         socket.emit('meeting-list', meetings);
         socket.broadcast.emit('meeting-list', meetings);
     });
-
 };
 
 var meetingListToday = function (socket) {

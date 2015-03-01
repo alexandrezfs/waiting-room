@@ -53,35 +53,69 @@
 <div id="slide-container" class="container-fluid">
 
     <div class="slide-wrapper">
-        <div class="slide">
 
+        <% for(var i = 0; i < advs.length; i++) { %>
 
-            <div class="row affix-row">
-                <div class="col-xs-12">
+        <% if(i % 2 == 0) { %>
 
-                    <div class="meetingList">
+        <% if(meetings.length > 7) {
+            var pageCount = meetings.length / 7;
+            pageCount = Math.ceil(pageCount);
+        } %>
 
-                        <table class="table table-striped" id="meetingList">
-                            <thead>
-                            <th data-dynatable-column="clientLastname"><%= __('client_lastname') %></th>
-                            <th data-dynatable-column="meetingReason"><%= __('reason') %></th>
-                            <th data-dynatable-column="meetingDatetime"><%= __('meeting_time') %></th>
-                            <th data-dynatable-column="meetingStatus"><%= __('meeting_status') %></th>
-                            </thead>
-                            <tbody>
+        <% for(var p = 0; p < pageCount; p++) { %>
 
-                            </tbody>
-                        </table>
+            <div class="slide">
+
+                <div class="row affix-row">
+                    <div class="col-xs-12">
+
+                        <div class="meetingList">
+
+                            <table class="table table-striped" id="meetingList">
+                                <thead>
+                                <th><%= __('client_lastname') %></th>
+                                <th><%= __('reason') %></th>
+                                <th><%= __('meeting_time') %></th>
+                                <th><%= __('meeting_status') %></th>
+                                </thead>
+                                <tbody>
+                                    <% var u = 0;
+
+                                    if(p == 0) {
+                                        u = 0;
+                                    }
+                                    else {
+                                        u = p*7;
+                                    } %>
+                                    <% for(var u = u; u < p*7+7; u++) { %>
+                                        <% if(meetings[u]) { %>
+                                        <tr>
+                                            <td><%= meetings[u].clientFirstname %> <%= meetings[u].clientLastname %></td>
+                                            <td><%= meetings[u].meetingReason %></td>
+                                            <td><%= meetings[u].meetingDatetime.getHours() %>H<% if(meetings[u].meetingDatetime.getMinutes() != '0') {%><%= meetings[u].meetingDatetime.getMinutes() %><% } %></td>
+                                            <td><%= meetings[u].meetingStatus %></td>
+                                        </tr>
+                                        <% } %>
+                                    <% } %>
+                                </tbody>
+                            </table>
+
+                        </div>
 
                     </div>
 
                 </div>
+
             </div>
 
-        </div>
+        <% } %>
 
-        <% for(var i = 0; i < advs.length; i++) { %>
-            <div class="slide"><%- advs[i].html_content %></div>
+        <% } else { %>
+
+        <div class="slide"><%- advs[i].html_content %></div>
+
+        <% } %>
         <% } %>
 
     </div>
@@ -103,7 +137,7 @@
 <script type="text/javascript">
     // After page load
     var slider = new SliderDiv();
-    slider.autoPlay(6000);
+    slider.autoPlay(7500);
 </script>
 
 </body>

@@ -82,11 +82,9 @@ app.listen(config.values.server_port, function () {
 
 io.sockets.on('connection', function (socket) {
 
+    exports.socket = socket;
+
     socket.on('newMeeting', function (meeting) {
-
-        console.log(meeting);
-
-
         realtime.newMeeting(meeting, socket);
     });
     socket.on('meeting-list', function () {

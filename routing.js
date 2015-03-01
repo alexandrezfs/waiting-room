@@ -1,7 +1,8 @@
 var config = require('./config');
 var model = require('./model');
 var forecastUtil = require('./forecast-util');
-
+var realtime = require('./realtime');
+var app = require('./app');
 
 exports.indexRoute = function (req, res) {
 
@@ -24,10 +25,13 @@ exports.frontRoute = function (req, res) {
 
     model.Setting.findOne({key: 'company_name'}, function (err, setting) {
         model.Advertising.find({}, function (err, advs) {
-            res.render('front', {
-                ws_addr: ws_addr,
-                company_name: setting.value,
-                advs: advs
+            model.Meeting.find({}).sort({created_at: -1}).exec(function (err, meetings) {
+                res.render('front', {
+                    ws_addr: ws_addr,
+                    company_name: setting.value,
+                    advs: advs,
+                    meetings: meetings
+                });
             });
         });
     });
@@ -99,6 +103,7 @@ exports.addAdvertisingProcessRoute = function (req, res) {
     new model.Advertising(adv).save(function (err, adv) {
 
         console.log(adv);
+        realtime.refresh(app.socket);
         res.redirect('/advertising/list');
     });
 };
@@ -147,6 +152,7 @@ exports.updateAdvertisingProcessRoute = function (req, res) {
         ad.adv_name = newad.adv_name;
         ad.save(function(err, ad) {
             console.log(ad);
+            realtime.refresh(app.socket);
             res.redirect('/advertising/list');
         });
     });
