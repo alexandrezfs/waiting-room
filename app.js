@@ -60,13 +60,19 @@ passport.use(new LocalStrategy(
 
 app.get('/', routing.indexRoute);
 app.get('/dashboard', passportUtil.isLoggedIn, routing.dashboardRoute);
-app.get('/front', passportUtil.isLoggedIn, routing.frontRoute);
+app.get('/front', routing.frontRoute);
 app.get('/company', passportUtil.isLoggedIn, routing.companyRoute);
 app.post('/login', passport.authenticate('local', {failureRedirect: '/', failureFlash: true}), routing.loginRoute);
 app.get('/logout', routing.logoutRoute);
 app.get('/api/meeting/:_id', routing.getMeetingByIdRoute);
 app.get('/api/weather', routing.weatherRoute);
 app.post('/api/saveCompanyName', passportUtil.isLoggedIn, routing.saveCompanyName);
+app.get('/advertising/delete/:_id', passportUtil.isLoggedIn, routing.deleteAdvertisingRoute);
+app.post('/advertising/update', passportUtil.isLoggedIn, routing.updateAdvertisingProcessRoute);
+app.get('/advertising/update/:_id', passportUtil.isLoggedIn, routing.updateAdvertisingRoute);
+app.get('/advertising/add', passportUtil.isLoggedIn, routing.addAdvertisingRoute);
+app.post('/advertising/add', passportUtil.isLoggedIn, routing.addAdvertisingProcessRoute);
+app.get('/advertising/list', passportUtil.isLoggedIn, routing.listAdvertisingRoute);
 
 app.listen(config.values.server_port, function () {
     console.log("server started on port " + config.values.server_port);
@@ -77,6 +83,10 @@ app.listen(config.values.server_port, function () {
 io.sockets.on('connection', function (socket) {
 
     socket.on('newMeeting', function (meeting) {
+
+        console.log(meeting);
+
+
         realtime.newMeeting(meeting, socket);
     });
     socket.on('meeting-list', function () {

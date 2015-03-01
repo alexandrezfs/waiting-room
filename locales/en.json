@@ -4,6 +4,7 @@
   "client_lastname": "Client lastname",
   "reason": "Reason",
   "meeting_datetime": "Meeting datetime",
+  "meeting_time": "Meeting Time",
   "meeting_status": "Meeting status",
   "add": "Add",
   "update": "Save",
@@ -18,5 +19,13 @@
   "pending": "Pending",
   "company_info": "Company infos",
   "company_name": "Company name",
-  "company_logo": "Company logo"
+  "company_logo": "Company logo",
+  "repairing": "Repairing",
+  "finished": "Finished",
+  "advertising": "Advertising",
+  "addadvertising": "Add advertising",
+  "updateadvertising": "Update advertising",
+  "deleteadvertising": "Remove advertising",
+  "listadvertising": "Advertising List",
+  "advertisingname": "Advertising Name"
 }

@@ -17,9 +17,9 @@
 
     <script>
         var buttons = {
-            departure: '<button class="btn btn-primary btn-sm" type="button">' + '<%= __('departure') %>' + '</button>',
-            pending: '<button class="btn btn-success btn-sm" type="button">' + '<%= __('pending') %>' + '</button>',
-            arrival: '<button class="btn btn-danger btn-sm" type="button">' + '<%= __('arrival') %>' + '</button>'
+            pending: '<button class="btn btn-primary btn-sm" type="button">' + '<%= __('pending') %>' + '</button>',
+            repairing: '<button class="btn btn-success btn-sm" type="button">' + '<%= __('repairing') %>' + '</button>',
+            finished: '<button class="btn btn-danger btn-sm" type="button">' + '<%= __('finished') %>' + '</button>'
         };
     </script>
 
@@ -54,8 +54,8 @@
                     <div class="form-group">
                         <select class="form-control" id="meetingStatusUpdate" placeholder="<%= __('meeting_status') %>">
                             <option value="pending"><%= __('pending') %></option>
-                            <option value="departure"><%= __('departure') %></option>
-                            <option value="arrival"><%= __('arrival') %></option>
+                            <option value="repairing"><%= __('repairing') %></option>
+                            <option value="finished"><%= __('finished') %></option>
                         </select>
                     </div>
                     <input type="hidden" id="meetingIdUpdate">
@@ -100,8 +100,8 @@
                 <div class="form-group">
                     <select class="form-control" id="meetingStatus" placeholder="<%= __('meeting_status') %>">
                         <option value="pending"><%= __('pending') %></option>
-                        <option value="departure"><%= __('departure') %></option>
-                        <option value="arrival"><%= __('arrival') %></option>
+                        <option value="repairing"><%= __('repairing') %></option>
+                        <option value="finished"><%= __('finished') %></option>
                     </select>
                 </div>
                 <button class="btn btn-default btn-success" id="addBtn"><%= __('add') %></button>
@@ -133,6 +133,7 @@
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="bower_components/sweetalert/lib/sweet-alert.min.js"></script>
 <script src="bower_components/moment/moment.js"></script>
+<script src="bower_components/moment/locale/fr.js"></script>
 <script src="bower_components/dynatable/jquery.dynatable.js"></script>
 <script src="js/lib/socket.io.js"></script>
 <script src="js/lib/jquery.datetimepicker.js"></script>

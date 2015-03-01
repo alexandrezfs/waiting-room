@@ -17,9 +17,9 @@
 
     <script>
         var buttons = {
-            departure: '<button class="btn btn-primary btn-sm" type="button">' + '<%= __('departure') %>' + '</button>',
+            repairing: '<button class="btn btn-primary btn-sm" type="button">' + '<%= __('repairing') %>' + '</button>',
             pending: '<button class="btn btn-success btn-sm" type="button">' + '<%= __('pending') %>' + '</button>',
-            arrival: '<button class="btn btn-danger btn-sm" type="button">' + '<%= __('arrival') %>' + '</button>'
+            finished: '<button class="btn btn-danger btn-sm" type="button">' + '<%= __('finished') %>' + '</button>'
         };
     </script>
 
@@ -28,46 +28,62 @@
 
 <input type="hidden" id="ws_addr" value="<%= ws_addr %>">
 
-<div class="container">
-
-    <div class="row affix-row jumbotron">
+<div class="container-fluid">
+    <div class="row affix-row red-header">
         <div class="col-xs-10">
+            <img src="img/logo.png" class="pull-left" style="padding:10px;margin-top:11px;">
+
             <h2><%= company_name %></h2>
+            <h4>Toyota STAMCAR vous souhaite la bienvenue</h4>
         </div>
         <div class="col-xs-2">
             <div id="weather" class="row">
                 <div class="col-xs-6">
-                    <h3 id="weatherTemperature"></h3>
+                    <h4 id="weatherTemperature"></h4>
                 </div>
                 <div class="col-xs-6">
-                    <canvas id="weatherIcon" width="55" height="55"></canvas>
+                    <canvas id="weatherIcon" width="45" height="45"></canvas>
                 </div>
-                <h3 id="showTime"></h3>
+                <h5 id="showTime"></h5>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="row affix-row">
-        <div class="col-xs-12">
+<div id="slide-container" class="container-fluid">
 
-            <div class="meetingList">
+    <div class="slide-wrapper">
+        <div class="slide">
 
-                <table class="table table-striped" id="meetingList">
-                    <thead>
-                    <th data-dynatable-column="clientFirstname"><%= __('client_firstname') %></th>
-                    <th data-dynatable-column="clientLastname"><%= __('client_lastname') %></th>
-                    <th data-dynatable-column="meetingReason"><%= __('reason') %></th>
-                    <th data-dynatable-column="meetingDatetime"><%= __('meeting_datetime') %></th>
-                    <th data-dynatable-column="meetingStatus"><%= __('meeting_status') %></th>
-                    </thead>
-                    <tbody>
 
-                    </tbody>
-                </table>
+            <div class="row affix-row">
+                <div class="col-xs-12">
 
+                    <div class="meetingList">
+
+                        <table class="table table-striped" id="meetingList">
+                            <thead>
+                            <th data-dynatable-column="clientLastname"><%= __('client_lastname') %></th>
+                            <th data-dynatable-column="meetingReason"><%= __('reason') %></th>
+                            <th data-dynatable-column="meetingDatetime"><%= __('meeting_time') %></th>
+                            <th data-dynatable-column="meetingStatus"><%= __('meeting_status') %></th>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
             </div>
 
         </div>
+
+        <% for(var i = 0; i < advs.length; i++) { %>
+            <div class="slide"><%- advs[i].html_content %></div>
+        <% } %>
+
     </div>
 
 </div>
@@ -76,11 +92,19 @@
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="bower_components/sweetalert/lib/sweet-alert.min.js"></script>
 <script src="bower_components/moment/moment.js"></script>
+<script src="bower_components/moment/locale/fr.js"></script>
 <script src="bower_components/dynatable/jquery.dynatable.js"></script>
 <script src="js/lib/socket.io.js"></script>
 <script src="js/lib/skycons.js"></script>
 <script src="js/lib/jquery.datetimepicker.js"></script>
+<script src="js/lib/sliderdiv.js"></script>
 <script src="js/front.js"></script>
+
+<script type="text/javascript">
+    // After page load
+    var slider = new SliderDiv();
+    slider.autoPlay(6000);
+</script>
 
 </body>
 </html>

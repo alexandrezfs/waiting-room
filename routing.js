@@ -23,9 +23,12 @@ exports.frontRoute = function (req, res) {
     var ws_addr = config.values.ws_addr;
 
     model.Setting.findOne({key: 'company_name'}, function (err, setting) {
-        res.render('front', {
-            ws_addr: ws_addr,
-            company_name: setting.value
+        model.Advertising.find({}, function (err, advs) {
+            res.render('front', {
+                ws_addr: ws_addr,
+                company_name: setting.value,
+                advs: advs
+            });
         });
     });
 };
@@ -87,4 +90,64 @@ exports.saveCompanyName = function (req, res) {
 
 exports.loginRoute = function (req, res) {
     res.redirect('/dashboard');
+};
+
+exports.addAdvertisingProcessRoute = function (req, res) {
+
+    var adv = req.body;
+
+    new model.Advertising(adv).save(function (err, adv) {
+
+        console.log(adv);
+        res.redirect('/advertising/list');
+    });
+};
+
+exports.addAdvertisingRoute = function (req, res) {
+
+    res.render('advertising_add');
+};
+
+exports.listAdvertisingRoute = function (req, res) {
+
+    model.Advertising.find({}, function (err, advs) {
+
+        console.log(advs);
+
+        res.render('advertising_list', {advs: advs});
+    });
+
+};
+
+exports.deleteAdvertisingRoute = function (req, res) {
+
+    model.Advertising.findOneAndRemove({_id: req.params._id}, function (err) {
+
+        res.redirect('/advertising/list');
+    });
+};
+
+exports.updateAdvertisingRoute = function (req, res) {
+
+    model.Advertising.findOne({_id: req.params._id}, function (err, ad) {
+
+        console.log(ad);
+
+        res.render('advertising_update', {ad: ad});
+    });
+};
+
+exports.updateAdvertisingProcessRoute = function (req, res) {
+
+    var newad = req.body;
+
+    model.Advertising.findOne({_id: newad.advertising_id}, function (err, ad) {
+
+        ad.html_content = newad.html_content;
+        ad.adv_name = newad.adv_name;
+        ad.save(function(err, ad) {
+            console.log(ad);
+            res.redirect('/advertising/list');
+        });
+    });
 };

@@ -111,14 +111,14 @@ function initMeetingList(meetings) {
 
                 var status = el.meetingStatus;
 
-                if(status == 'departure') {
-                    return buttons.departure;
+                if(status == 'repairing') {
+                    return buttons.repairing;
                 }
                 else if(status == 'pending') {
                     return buttons.pending;
                 }
-                else if(status == 'arrival') {
-                    return buttons.arrival;
+                else if(status == 'finished') {
+                    return buttons.finished;
                 }
                 else {
                     return status;

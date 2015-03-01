@@ -19,5 +19,16 @@
 }
 
 #meetingList tr {
-    font-size: 1.5em;
+    font-size: 1.4em;
+}
+
+.red-header {
+    background-color: #d00000;
+    color: white;
+    padding: 5px;
+    margin-bottom: 20px;
+}
+
+.slide {
+    padding: 30px;
 }

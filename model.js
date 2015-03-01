@@ -37,3 +37,14 @@ var SettingSchema = new mongoose.Schema({
 });
 
 exports.Setting = mongoose.model('Setting', SettingSchema);
+
+
+var AdvertisingSchema = new mongoose.Schema({
+    adv_name: String,
+    html_content: String,
+    order: Number,
+    created_at: {type: Date, default: Date.now},
+    updated_at: {type: Date, default: Date.now}
+});
+
+exports.Advertising = mongoose.model('Advertising', AdvertisingSchema);

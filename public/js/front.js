@@ -21,14 +21,14 @@ function initMeetingList(meetings) {
 
                 var status = el.meetingStatus;
 
-                if(status == 'departure') {
-                    return buttons.departure;
-                }
-                else if(status == 'pending') {
+                if(status == 'pending') {
                     return buttons.pending;
                 }
-                else if(status == 'arrival') {
-                    return buttons.arrival;
+                else if(status == 'finished') {
+                    return buttons.finished;
+                }
+                else if(status == 'repairing') {
+                    return buttons.repairing;
                 }
                 else {
                     return status;
@@ -69,5 +69,9 @@ function getWeather() {
 };
 
 setInterval(function() {
-    $('#showTime').text(moment().format('LLLL'));
+    $('#showTime').text("Voici la date d'aujourd'hui : " + moment().locale('fr').format('LLLL'));
 }, 1000);
+
+setInterval(function() {
+    document.location.href =  document.location.href;
+}, 36000000);

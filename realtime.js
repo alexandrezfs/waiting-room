@@ -3,6 +3,8 @@ var moment = require('moment');
 
 exports.newMeeting = function (meeting, socket) {
 
+    console.log(meeting);
+
     var newMeeting = new model.Meeting(meeting);
 
     newMeeting.save(function (err, savedMeeting) {
